@@ -1,0 +1,8 @@
+自定义vscode快捷键：
+Ctrl + X 剪切
+Ctrl + Shif + K 删除行
+Ctrl + Shift +D 向下复制行
+Ctrl + ] 或 [ 行缩进
+Home 光标跳转到行头
+End 光标跳转到行尾
+Ctrl + / 添加关闭行注释

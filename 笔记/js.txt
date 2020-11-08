@@ -1,0 +1,54 @@
+=================promise======================
+var promise = new Promise(function(resolve, reject) {
+    // 异步处理
+    // 处理结束后、调用resolve 或 reject
+});
+============================================
+qiniutoken().then(res =>{
+          console.log('ok token')
+          this.token = res.uploadToken
+        }).then(() =>{
+          var ooo = this // 获取vm实例this
+          var datetime = new Date()
+          var key = datetime.getTime() + this.form.newfiledata.name
+          var uptoken = this.token
+          var putExtra = {
+            fname: '',
+            params: {},
+            mimeType: ['image/png', 'image/jpeg', 'image/gif']
+          }
+          var config = {
+            useCdnDomain: true
+          }
+          var observable = qiniu.upload(this.form.newfiledata, key, uptoken, putExtra, config)
+          console.log('开始上传图片')
+          return new Promise(function(resolve,reject){
+            var subscription = observable.subscribe({
+            next(res) {
+              // 接收上传进度信息
+              var percent = res.total.percent
+              ooo.jindu = percent.toFixed()
+              ooo.jindu = Number(ooo.jindu)
+              console.log('上传进度：' + ooo.jindu)
+            },
+            error(err) {
+              // 上传错误后触发
+              console.log('上传错误')
+              console.log(err)
+              reject()
+            },
+            complete(ress) {
+              // 接收上传完成后的后端返回信息
+              console.log('上传完成！')
+              ooo.form.newfiledata = ress.key
+              resolve()
+            }
+          })
+          })
+        }).catch(err =>{
+          console.log('no token')
+          console.log(err)
+        })
+
+
+{ "code": "ER_BAD_FIELD_ERROR", "errno": 1054, "sqlMessage": "Unknown column 'undefined' in 'where clause'", "sqlState": "42S22", "index": 0, "sql": "update article set title = 'undefined',img = 'http://img.cdn.zhengbeining.com/undefined',content = 'undefined',date = 'undefined' where id = undefined" }

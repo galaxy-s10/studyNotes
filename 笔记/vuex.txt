@@ -1,0 +1,74 @@
+=====================action调用===================
+  mutations: {
+    add (xxx, par) {
+      xxx.count = xxx.count + par
+      console.log(xxx.count + ',' + par)
+    }
+  },
+
+  actions: {
+    // 默认写法
+    ooo (context, par) {
+      context.commit('add', par)
+    },
+    // es6参数解构写法
+    ooo ({ commit }, par) {
+      commit('add', par)
+    }
+}
+
+===========vuex核心===================
+const store = new Vuex.Store({
+  state: {
+    todos: [
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
+    ]
+  },
+  mutations: {
+    increment (state) {
+      // 变更状态
+      state.count++
+    }
+  }
+})
+
+
+===============
+dispatch：含有异步操作，数据提交至 actions ，可用于向后台提交数据
+写法示例： this.$store.dispatch('isLogin', true);
+
+commit：同步操作，数据提交至 mutations ，可用于登录成功后读取用户信息写到缓存里
+写法示例： this.$store.commit('loginStatus', 1);
+===========================es6函数==========
+只有一个参数时，括号也可省略，返回值只有一个时，中括号可以省略
+
+let fn = function(a){
+    return a;
+}
+简写：
+let fn = a=>{
+    return a;
+}
+===========================promise==========
+function test(resolve, reject) {
+            var timeOut = Math.random() * 2;
+            console.log('set timeout to: ' + timeOut + ' seconds.');
+            setTimeout(function () {
+                if (timeOut < 1) {
+                    console.log('call resolve()...');
+                    resolve('200 OK');
+                }
+                else {
+                    console.log('call reject()...');
+                    reject('timeout in ' + timeOut + ' seconds.');
+                }
+            }, timeOut * 1000);
+        }
+        // test()
+        new Promise(test).then(function (result) {
+            console.log('成功：' + result);
+        }).catch(function (reason) {
+            console.log('失败：' + reason);
+        });
+=====================

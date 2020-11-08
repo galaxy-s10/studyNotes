@@ -1,0 +1,134 @@
+========过渡动画====================
+    v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。
+
+    v-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。
+
+    v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。
+
+    v-leave: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。
+
+    v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。
+
+    v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。
+
+============生命周期=================
+beforcreate->created->beforemount->mounted->beforeupdate->updated->beforedestory->destoryed
+created时，可以访问和修改data里的数据
+
+父组件created钩子结束后，依次执行子组件的created钩子
+多个子组件的created执行顺序为父组件内子组件DOM顺序
+多个子组件的mounted顺序无法保证，跟子组件本身复杂程度有关
+父组件一定在所有子组件结束mounted钩子之后，才会进入mounted钩子
+
+===================================
+node里req.body获取请求数据
+
+
+=========定义一个变量接受this,这时候约等于把实例传递给变量，因此可操作data里的数据 ===========
+ data() {
+    return {
+      token: "",
+      jindu: 10,
+    };
+  },
+  methods: {
+    getooo(){
+      var ooo = this
+      function xxx(){
+        ooo.jindu = 100
+      }
+      xxx()
+    },
+}
+
+===============事件修饰符==========
+你可能有很多次想要在一个组件的根元素上直接监听一个原生事件。这时，你可以使用 v-on 的 .native 修饰符：
+
+<!-- prevent的使用：阻止默认事件的发生 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<base-input v-on:focus.native="onFocus"></base-input>
+
+new Vue({
+　　el: '#app',
+　　methods: {
+　　　　onFocus: function(){
+　　　　　　console.log("message: success")
+　　　　}
+　　}
+}
+==============v-for==========
+我们可以用 v-for 指令基于一个数组来渲染一个列表。v-for 指令需要使用 item in items 形式的特殊语法，
+其中 items 是源数据数组，而 item 则是被迭代的数组元素的别名。
+
+<ul id="example-1">
+  <li v-for="item in items">
+    {{ item.message }}
+  </li>
+</ul>
+
+var example1 = new Vue({
+  el: '#example-1',
+  data: {
+    items: [
+      { message: 'Foo' },
+      { message: 'Bar' }
+    ]
+  }
+})
+=======================模板========================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue.js</title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+
+
+
+</body>
+</html>
+
+================================实例化Vue对象===============================
+new Vue({
+	el:'#app',
+	data:{
+		name:"张三",
+		age:"18",
+		web:"http://www.baidu.com"
+	},
+	methods:{
+		hello:function(){
+			return "hello"+this.name;
+		}
+	}
+});
+=================================================================
+v-html		使用v-html指令用户输出html代码，例，<div v-html="hhh"></div>
+v-bind		html属性中的值应使用v-bind指令，例，<a v-bind:href="web">baidu.com</a> 或者 <a :href="web">baidu.com</a>
+v-on		事件处理器，接受methods里的方法，例，<button v-on:click="add(1)">点击增加一岁</button> 或者 <button  @click="add(1)">点击增加一岁</button>
+========双向绑定======
+v-model
+例，<input type="text" v-model="tree"><span>{{tree}}</span>
+	<label for="bmw">宝马</label><input type="checkbox" id="bmw" value="宝马" v-model="carmode">
+    <label for="benz">奔驰</label><input type="checkbox" id="benz" value="奔驰" v-model="carmode">
+    <label for="audi">奥迪</label><input type="checkbox" id="audi" value="奥迪" v-model="carmode">
+    <span>已选：{{carmode}}</span>
+
+ref
+<label>车：</label><input type="text" ref="car" v-on:keyup="getcar">
+<span>{{car}}</span>
+===================================computed 计算属性===================
+methods：页面中出现方法就执行，而且每重新载入任意一个，页面中的每个方法都会跟着执行一次
+computed：有一个就只执行一个
+
+v-bind可以绑定computed属性
+v-on不可以绑定computed属性！
+
+==============
+
+
+
+

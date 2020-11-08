@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function deepclone(obj) {
+        const newobj = obj instanceof Array ? [] : {}
+        for (let i in obj) {
+            // 判断自身属性中是否具有指定的属性（避免克隆了原型上的东西）
+            if (obj.hasOwnProperty(i)) {
+                // 判断是不是原始值
+                if (obj[i] instanceof Object == true) {
+                    // 不是原始值开始递归
+                    newobj[i] = deepclone(obj[i])
+                } else {
+                    // 是原始值直接赋值
+                    newobj[i] = obj[i]
+                }
+            }
+
+        }
+        return newobj
+    }
+    const arr = ['11', '22', '33', 'aaa', 'bbb', 'cccc']
+    const obj = {
+        a: 1,
+        b: { name: '张三', age: 14, hobby: ['唱', '跳', 'rap'] },
+        c: ['周杰伦', '华晨宇', '林俊杰'],
+        e: function () {
+            console.log('我是e函数');
+            return 'eee'
+        }
+    }
+    const newobj = deepclone(obj)
+    console.log(newobj);    //{a: 1, b: {…}, c: Array(3), e: {…}}
+    obj.a = 999
+    console.log(newobj);    //{a: 1, b: {…}, c: Array(3), e: {…}}
+    console.log(obj);       //{a: 999, b: {…}, c: Array(3), e: {…}}
+    const newarr = deepclone(arr)
+
+    console.log(newarr);            //["11", "22", "33", "aaa", "bbb", "cccc"]
+    console.log(typeof newarr);     //object
+    console.log(newarr[0]);         //11
+</script>
+
+<body>
+
+</body>
+
+</html>

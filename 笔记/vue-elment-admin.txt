@@ -1,0 +1,28 @@
+路由：  
+{
+    // 缺省，或者path: "/"
+    path: '',
+    // 加载组件
+    component: Layout,
+    // 重定向
+    redirect: 'dashboard',
+}
+============路由重定向到dashboard==========
+路由卫士：
+const whiteList = ['/login', '/auth-redirect']	//重定向白名单
+
+router.beforeEach(async(to, from, next) => {
+    console.log(to.path)		//dashboard
+    // indexOf() 方法可返回数组中某个指定的元素位置。如果在数组中没找到指定元素则返回 -1。
+    if (whiteList.indexOf(to.path) !== -1) {		
+      console.log('不在白名单里')
+      // in the free login whitelist, go directly
+      next()
+      console.log('oooooooooo')
+    } else {
+      // other pages that do not have permission to access are redirected to the login page.
+      console.log('在白名单里')
+      next(`/login?redirect=${to.path}`)
+      NProgress.done()
+    }
+})

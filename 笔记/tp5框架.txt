@@ -1,0 +1,59 @@
+==================当前模块/默认视图目录/当前控制器（小写）/当前操作（小写）.html=================
+
+//fetch渲染模板输出
+//不带参数默认找	当前模块/默认视图目录/当前控制器（小写）/当前操作（小写）.html
+return $this->fetch();
+
+//带参数找	当前模块/默认视图目录/当前控制器（小写）/参数名.html
+return $this->fetch('hello');
+return $this->fetch('hello',['name'=>'thinkphp','age'=>'18']);
+
+//view助手函数
+return view('hello',['name'=>'thinkphp','age'=>'18']);
+
+//display()渲染内容输出
+return $this->display('hello');
+	
+//assign()方法
+//模板变量赋值
+$this->assign('name','thinkphp');
+$this->assign('age','19');
+return $this->fetch();
+    	
+
+/*
+$content = '{$name},{$email}'; 
+return $this->display($content, [ 'name' => 'ThinkPHP', 'email' => 'thinkphp@qq.com' ]);
+           
+/*
+$info = ['user'=>'root','pwd'=>'123'];
+$content = '{$user}';
+return $this->display($content,$info);
+*/
+=======================数据库=====================
+//连接数据库
+        $res = Db::connect([
+        // 数据库类型
+        'type'            => 'mysql',
+        // 服务器地址
+        'hostname'        => '127.0.0.1',
+        // 数据库名
+        'database'        => 'library',
+        // 用户名
+        'username'        => 'root',
+        // 密码
+        'password'        => '',
+        // 端口
+        'hostport'        => '',
+        // 数据库编码默认采用utf8
+        'charset'         => 'utf8',
+        // 数据库表前缀
+        'prefix'          => '',
+        ]);
+		
+//query 方法用于执行 SQL 查询操作，如果数据非法或者查询错误则返回false，否则返回查询结果数据集 （同 select 方法）。
+		
+//查询
+Db::query('select * from book');
+Db::table('book')->select();
+		
